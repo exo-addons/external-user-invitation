@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.exoplatform.addons.external-user</groupId>
-		<artifactId>external-user-parent</artifactId>
-		<version>1.0.x-SNAPSHOT</version>
-	</parent>
-	<artifactId>external-user-webapp</artifactId>
-	<packaging>war</packaging>
-	<name>External User Addon - Extension</name>
-	<dependencies>
-		<dependency>
-		  <groupId>javax.portlet</groupId>
-		  <artifactId>portlet-api</artifactId>
-		  <scope>provided</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<finalName>${project.artifactId}</finalName>
-	</build>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>external-user-parent</artifactId>
+    <groupId>org.exoplatform.addons.external-user</groupId>
+    <version>1.0.x-SNAPSHOT</version>
+  </parent>
+  <artifactId>external-user-webapp</artifactId>
+  <packaging>war</packaging>
+  <name>External User Addon - Extension</name>
+  <dependencies>
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>${project.artifactId}</finalName>
+  </build>
 </project>
