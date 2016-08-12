@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.exoplaform.org/xml/ns/kernel_1_2.xsd http://www.exoplaform.org/xml/ns/kernel_1_2.xsd"
+	xmlns="http://www.exoplaform.org/xml/ns/kernel_1_2.xsd">
+	<external-component-plugins>
+		<target-component>org.exoplatform.services.organization.OrganizationService
+		</target-component>
+		<component-plugin>
+			<name>init.service.listener</name>
+			<set-method>addListenerPlugin</set-method>
+			<type>org.exoplatform.services.organization.OrganizationDatabaseInitializer
+			</type>
+			<description>Ce listener sert a l'initialisation de la base de
+				données</description>
+			<priority>100</priority>
+			<init-params>
+				<value-param>
+					<name>checkDatabaseAlgorithm</name>
+					<description>Verifier à chaque demarrage l'existance de ces entités
+					</description>
+					<value>entry</value>
+				</value-param>
+				<value-param>
+					<name>printInformation</name>
+					<description>Print information init database</description>
+					<value>true</value>
+				</value-param>
+				<object-param>
+					<name>configuration</name>
+					<description>description</description>
+					<object type="org.exoplatform.services.organization.OrganizationConfig">
+						<field name="group">
+							<collection type="java.util.ArrayList">
+								<value>
+									<object
+										type="org.exoplatform.services.organization.OrganizationConfig$Group">
+										<field name="name">
+											<string>${exo.addon.invite.externaluser.groupname:external}</string>
+										</field>
+										<field name="parentId">
+											<string></string>
+										</field>
+										<field name="description">
+											<string>External users group</string>
+										</field>
+										<field name="label">
+											<string>External</string>
+										</field>
+									</object>
+								</value>
+							</collection>
+						</field>
+					</object>
+				</object-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+</configuration>

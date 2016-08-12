@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
+	xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
+	<component>
+		<type>org.exoplatform.services.deployment.WCMContentInitializerService</type>
+	</component>
+	<component>
+		<key>org.exoplatform.addon.externaluser.ExternalUserTokenService</key>
+		<type>org.exoplatform.addon.externaluser.ExternalUserTokenService</type>
+		<init-params>
+			<values-param>
+				<name>service.configuration</name>
+				<value>persistent-token</value>
+				<value>${exo.addon.invite.externaluser.token.expiretime:90}</value>
+				<value>${exo.addon.invite.externaluser.token.expiretimeUnit:MINUTE}</value>
+				<value>externalusertoken</value>
+			</values-param>
+		</init-params>
+	</component>
+	<component>
+		<type>org.exoplatform.addon.externaluser.ExternalUserService</type>
+		<init-params>
+			<value-param>
+				<name>invite.externaluser.usernamePattern</name>
+				<description>Generated username pattern</description>
+				<value>${exo.addon.invite.externaluser.usernamePattern:ext.firstName.lastName}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.space.role</name>
+				<description>Space managers role that can invite external users to a space</description>
+				<value>${exo.addon.invite.externaluser.space.role:manager}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.permission</name>
+				<description>Group of managers that can invite external users</description>
+				<value>${exo.addon.invite.externaluser.permission:*:/platform/administrators}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.assignToSpecificGroup</name>
+				<description>Whether assign external users to a specific group or not</description>
+				<value>${exo.addon.invite.externaluser.assignToSpecificGroup:true}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.membershipType</name>
+				<description>membershipType used to assign external users to external users group</description>
+				<value>${exo.addon.invite.externaluser.membershipType:member}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.groupname</name>
+				<description>Groupname where the external users will be assigned</description>
+				<value>/${exo.addon.invite.externaluser.groupname:external}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.useInvitationSenderMail</name>
+				<description>Whether use the Mail adress of Manager that created the acount or not</description>
+				<value>${exo.addon.invite.externaluser.useInvitationSenderMail:false}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.invitationTemplate</name>
+				<description>Invitation Template JCR Path that is sent to user when created</description>
+				<value>${exo.addon.invite.externaluser.invitationTemplate:/sites/shared/web contents/site artifacts/invitation.txt}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.activationTemplate</name>
+				<description>Invitation Template JCR Path that is sent to user when created</description>
+				<value>${exo.addon.invite.externaluser.activationTemplate:/sites/shared/web contents/site artifacts/activation.txt}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.space.enableInvitation</name>
+				<description>This determines whether the space invitation is enabled or not.</description>
+				<value>${exo.addon.invite.externaluser.enableSpaceInvitation:false}</value>
+			</value-param>
+			<value-param>
+				<name>invite.externaluser.disableUserPeriod</name>
+				<description>The period of time when the user account will be disabled starting from first login. A number less or equal to 0 means this feature is disabled.</description>
+				<value>${exo.addon.invite.externaluser.disableUserPeriodInDays:30}</value>
+			</value-param>
+		</init-params>
+	</component>
+	<external-component-plugins>
+		<target-component>org.exoplatform.services.deployment.WCMContentInitializerService</target-component>
+		<component-plugin>
+			<name>Content Initializer Service</name>
+			<set-method>addPlugin</set-method>
+			<type>org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentPlugin</type>
+			<description>XML Deployment Plugin</description>
+			<init-params>
+				<value-param>
+					<name>siteName</name>
+					<description>Site name</description>
+					<value>External User Javascript</value>
+				</value-param>
+				<value-param>
+					<name>override</name>
+					<description>indicates if this plugin will override data over legacy data, default value:true</description>
+					<value>${exo.addon.invite.externaluser.js.override:true}</value>
+				</value-param>
+				<object-param>
+					<name>External User Javascript</name>
+					<object
+						type="org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentDescriptor">
+						<field name="target">
+							<object
+								type="org.exoplatform.services.deployment.DeploymentDescriptor$Target">
+								<field name="workspace">
+									<string>collaboration</string>
+								</field>
+								<field name="nodePath">
+									<string>/sites/shared/js</string>
+								</field>
+							</object>
+						</field>
+						<field name="sourcePath">
+							<string>jar:/conf/portal/externaluser/inviteuserJS.xml</string>
+						</field>
+						<field name="cleanupPublication">
+							<boolean>false</boolean>
+						</field>
+					</object>
+				</object-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+	<external-component-plugins>
+		<target-component>org.exoplatform.services.deployment.WCMContentInitializerService</target-component>
+		<component-plugin>
+			<name>Content Initializer Service</name>
+			<set-method>addPlugin</set-method>
+			<type>org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentPlugin</type>
+			<description>XML Deployment Plugin</description>
+			<init-params>
+				<value-param>
+					<name>siteName</name>
+					<description>Site name</description>
+					<value>External User Mail Template</value>
+				</value-param>
+				<value-param>
+					<name>override</name>
+					<description>indicates if this plugin will override data over legacy data, default value:false</description>
+					<value>${exo.addon.invite.externaluser.mailTemplate.override:false}</value>
+				</value-param>
+				<object-param>
+					<name>Invite User Message</name>
+					<object
+						type="org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentDescriptor">
+						<field name="target">
+							<object
+								type="org.exoplatform.services.deployment.DeploymentDescriptor$Target">
+								<field name="workspace">
+									<string>${exo.addon.invite.externaluser.invitationTemplate.destinationworkspace:collaboration}</string>
+								</field>
+								<field name="nodePath">
+									<string>${exo.addon.invite.externaluser.invitationTemplate.destinationpath:/sites/shared/web contents/site artifacts}</string>
+								</field>
+							</object>
+						</field>
+						<field name="sourcePath">
+							<string>${exo.addon.invite.externaluser.invitationTemplate.sourcepath:jar:/conf/portal/externaluser/inviteUserMessage.xml}</string>
+						</field>
+						<field name="cleanupPublication">
+							<boolean>false</boolean>
+						</field>
+					</object>
+				</object-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+	<external-component-plugins>
+		<target-component>org.exoplatform.services.deployment.WCMContentInitializerService</target-component>
+		<component-plugin>
+			<name>Content Initializer Service</name>
+			<set-method>addPlugin</set-method>
+			<type>org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentPlugin</type>
+			<description>XML Deployment Plugin</description>
+			<init-params>
+				<value-param>
+					<name>siteName</name>
+					<description>Site name</description>
+					<value>Activate User Message</value>
+				</value-param>
+				<value-param>
+					<name>override</name>
+					<description>indicates if this plugin will override data over legacy data, default value:false</description>
+					<value>${exo.addon.invite.externaluser.mailTemplate.override:false}</value>
+				</value-param>
+				<object-param>
+					<name>Activate User Message</name>
+					<object
+						type="org.exoplatform.services.wcm.extensions.deployment.WCMPublicationDeploymentDescriptor">
+						<field name="target">
+							<object
+								type="org.exoplatform.services.deployment.DeploymentDescriptor$Target">
+								<field name="workspace">
+									<string>${exo.addon.invite.externaluser.activationTemplate.destinationworkspace:collaboration}</string>
+								</field>
+								<field name="nodePath">
+									<string>${exo.addon.invite.externaluser.activationTemplate.destinationpath:/sites/shared/web contents/site artifacts}</string>
+								</field>
+							</object>
+						</field>
+						<field name="sourcePath">
+							<string>${exo.addon.invite.externaluser.activationTemplate.sourcepath:jar:/conf/portal/externaluser/activateUserMessage.xml}</string>
+						</field>
+						<field name="cleanupPublication">
+							<boolean>false</boolean>
+						</field>
+					</object>
+				</object-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+	<external-component-plugins>
+		<!-- The full qualified name of the ResourceBundleService -->
+		<target-component>org.exoplatform.services.resources.ResourceBundleService</target-component>
+		<component-plugin>
+			<!-- The name of the plugin -->
+			<name>External User Addon ResourceBundle Plugin</name>
+			<!-- The name of the method to call on the ResourceBundleService in order 
+				to register the ResourceBundles -->
+			<set-method>addResourceBundle</set-method>
+			<!-- The full qualified name of the BaseResourceBundlePlugin -->
+			<type>org.exoplatform.services.resources.impl.BaseResourceBundlePlugin</type>
+			<init-params>
+				<values-param>
+					<name>init.resources</name>
+					<value>locale.addon.externaluser</value>
+				</values-param>
+				<values-param>
+					<name>portal.resource.names</name>
+					<value>locale.addon.externaluser</value>
+				</values-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+	<external-component-plugins>
+		<target-component>org.exoplatform.commons.chromattic.ChromatticManager</target-component>
+		<component-plugin>
+			<name>chromattic</name>
+			<set-method>addLifeCycle</set-method>
+			<type>org.exoplatform.commons.chromattic.ChromatticLifeCycle</type>
+			<init-params>
+				<value-param>
+					<name>domain-name</name>
+					<value>externalusertoken</value>
+				</value-param>
+				<value-param>
+					<name>workspace-name</name>
+					<value>portal-work</value>
+				</value-param>
+				<values-param>
+					<name>entities</name>
+					<value>org.exoplatform.web.security.security.TokenContainer</value>
+					<value>org.exoplatform.web.security.security.TokenEntry</value>
+					<value>org.exoplatform.web.security.security.HashedToken</value>
+				</values-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+	<external-component-plugins>
+		<target-component>org.exoplatform.web.filter.ExtensibleFilter</target-component>
+		<component-plugin>
+			<name>Filter Definition Plugin</name>
+			<set-method>addFilterDefinitions</set-method>
+			<type>org.exoplatform.web.filter.FilterDefinitionPlugin</type>
+			<init-params>
+				<object-param>
+					<name>ExternalUserDisableFilter</name>
+					<object type="org.exoplatform.web.filter.FilterDefinition">
+						<!-- The filter instance -->
+						<field name="filter">
+							<object
+								type="org.exoplatform.addon.externaluser.ExternalUserDisableFilter" />
+						</field>
+						<field name="patterns">
+							<collection type="java.util.ArrayList" item-type="java.lang.String">
+								<value>
+									<string>/.*</string>
+								</value>
+							</collection>
+						</field>
+					</object>
+				</object-param>
+			</init-params>
+		</component-plugin>
+	</external-component-plugins>
+</configuration>
