@@ -17,10 +17,10 @@
     <module>external-user-packaging</module>
   </modules>
   <scm>
-    <connection>scm:git:git://github.com/exo-addons/external-users.git</connection>
-    <developerConnection>scm:git:git@github.com:exo-addons/external-users.git</developerConnection>
+    <connection>scm:git:git://github.com/exo-addons/external-user-invitation.git</connection>
+    <developerConnection>scm:git:git@github.com:exo-addons/external-user-invitation.git</developerConnection>
     <tag>HEAD</tag>
-    <url>https://github.com/exo-addons/external-users</url>
+    <url>https://github.com/exo-addons/external-user-invitation</url>
   </scm>
   <properties>
     <org.exoplatform.platform.version>4.3.0</org.exoplatform.platform.version>
