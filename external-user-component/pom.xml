@@ -4,10 +4,10 @@
   <parent>
     <artifactId>external-user-parent</artifactId>
     <groupId>org.exoplatform.addons.external-user</groupId>
-    <version>1.0.x-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>external-user-component</artifactId>
-  <version>1.0.x-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>jar</packaging>
   <name>External User Addon - Services</name>
   <dependencies>
